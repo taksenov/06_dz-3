@@ -166,4 +166,90 @@ try {
 
 console.log('---= end map =---');
 
+// slice
+function slice( arraySource, begin, end ) {
+    let arraySourceLength = arraySource.length;
+    let outArray = [];
+    let beginParam = begin;
+    let endParam = end;
+
+    // if slice parameters is not set
+    if ( !beginParam ) {
+        beginParam = 0;
+    }
+    if ( !endParam ) {
+        endParam = arraySourceLength;
+    }
+
+    if ( arraySourceLength === 0 || !Array.isArray(arraySource) ) {
+        throw new Error('NOT_ARRAY');
+    } else {
+        // if end and begin equal
+        if ( endParam === beginParam ) {
+            return outArray;
+        }
+        // begin condition
+        if ( beginParam < 0 ) {
+            if ( Math.abs(beginParam) > arraySourceLength ) {
+                return outArray;
+            } else {
+                beginParam = arraySourceLength + beginParam;
+            }
+        }
+        // end condition
+        if ( endParam < 0 ) {
+            endParam = arraySourceLength + endParam;
+        }
+        // out of range condition
+        if ( endParam < beginParam || endParam > arraySourceLength || beginParam > arraySourceLength ) {
+            return outArray;
+        } else {
+            for (let i = beginParam; i < endParam; i++ ) {
+                outArray[outArray.length] = arraySource[i];
+            }
+        }
+    }
+
+    return outArray;
+}; //slice
+
+try {
+    let slice1 = slice(array, 2, -100 );
+    let sliceEtalon = array.slice( 2, -100 )
+    console.log('slice etalon', sliceEtalon);
+    console.log('slice array', slice1);
+    console.log('-------');
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+try {
+    let slice1 = slice(array2, 2, -1 );
+    console.log('slice array', slice1);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+try {
+    let slice1 = slice(array3, 2, -1 );
+    console.log('slice array', slice1);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+try {
+    let slice1 = slice(array4, 2, -1 );
+    console.log('slice array', slice1);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+// slice end
+
+console.log('---= slice end =---');
+
 // new method
