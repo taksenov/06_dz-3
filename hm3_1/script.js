@@ -115,7 +115,6 @@ try {
 console.log('---= end filter =---');
 
 //map
-
 function map( arraySource, conditionFunc ) {
     let arraySourceLength = arraySource.length;
     let outArray = [];
@@ -129,7 +128,7 @@ function map( arraySource, conditionFunc ) {
     }
 
     return outArray;
-}; //filter
+}; //map
 
 try {
     let sqare = map(array, item => item*item);
@@ -163,7 +162,8 @@ try {
         console.error('Введен пустой массив или массив не задан!');
     }
 }
-
-
-
 //map end
+
+console.log('---= end map =---');
+
+// new method
