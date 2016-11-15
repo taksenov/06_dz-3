@@ -252,4 +252,150 @@ try {
 
 console.log('---= slice end =---');
 
-// new method
+// reduce
+let testReduceArray = [[0, 1], [2, 3], [4, 5]];
+
+function reduce( arraySource, callbackReduce, initialValue ) {
+    let arraySourceLength = arraySource.length;
+    let outParam;
+    let init = initialValue;
+
+    // Если массив пустой и аргумент initialValue не указан, будет брошено исключение TypeError.
+    if ( arraySourceLength === 0 || !Array.isArray(arraySource) && !init && init !== 0 ) {
+        throw new Error('NOT_ARRAY');
+    }
+    //  если аргумент initialValue указан, но массив пустой, то будет возвращено одно это значение, без вызова функции callback.
+    else if ( arraySourceLength === 0 || !Array.isArray(arraySource) && init || init === 0 ) {
+        return init;
+    }
+    else {
+        let n = 0;
+        let onceElemOfArray = 0;
+        let counter = 0;
+
+        //Если массив состоит только из одного элемента (независимо от его положения в массиве) и аргумент initialValue не указан,
+        // то будет возвращено одно это значение, без вызова функции callback.
+        for (let i=0; i < arraySourceLength; i++ ) {
+            if ( arraySource[i] ) {
+                ++n;
+                onceElemOfArray = arraySource[i];
+            }
+        }
+
+        if ( n === 1 && !init && init !== 0 ) {
+            return onceElemOfArray;
+        }
+
+        // Если при вызове reduce()
+        // передан аргумент initialValue, то значение previousValue будет
+        // равным значению initialValue, а значение currentValue будет равным
+        // первому значению в массиве.
+        if ( init || init === 0 ) {
+            let currentValue = arraySource[0];
+            let i = 0;
+            ++counter;
+            outParam = callbackReduce( init, currentValue, i, arraySource );
+        } else
+        // Если аргумент initialValue не задан,
+        // то значение previousValue будет равным первому значению в массиве,
+        // а значение currentValue будет равным второму значению в массиве.
+        if ( !init && init !== 0 ) {
+            init = arraySource[0];
+            let currentValue = arraySource[1];
+            let i = 1;
+            counter += 2;
+            outParam = callbackReduce( init, currentValue, i, arraySource );
+        }
+
+        // exec reduceCallback с учетом счетчика counter
+
+        function reduceArrayElement(  ) {
+            if ( arraySource[counter] ) {
+                outParam = callbackReduce( outParam, arraySource[counter], counter, arraySource );
+                ++counter;
+                reduceArrayElement(  );
+            }
+        } //reduceArrayElement
+        reduceArrayElement(  );
+    }
+
+    return outParam;
+}; //reduce
+
+try {
+    let reduce1 = reduce(testReduceArray, (previousValue, currentValue, index, array) => { return previousValue.concat(currentValue) });
+    let reduceEtalon = testReduceArray.reduce( (previousValue, currentValue, index, array) => { return previousValue.concat(currentValue) });
+    console.log('reduce TEST array', reduce1);
+    console.log('reduce TEST etalon', reduceEtalon);
+    console.log('-------');
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    } else {
+        console.error('Ошибка!');
+        console.dir(e);
+    }
+}
+
+try {
+    let reduce1 = reduce(array, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
+    let reduceEtalon = array.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
+    console.log('reduce array', reduce1);
+    console.log('reduce etalon', reduceEtalon);
+    console.log('-------');
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    } else {
+        console.error('Ошибка!');
+        console.dir(e);
+    }
+}
+
+try {
+    let reduce1 = reduce(array2, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
+    let reduceEtalon = array2.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
+    console.log('reduce array2', reduce1);
+    console.log('reduce etalon2', reduceEtalon);
+    console.log('-------');
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    } else {
+        console.error('Ошибка!');
+        console.dir(e);
+    }
+}
+
+try {
+    let reduce1 = reduce(array3, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
+    let reduceEtalon = array3.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
+    console.log('reduce array3', reduce1);
+    console.log('reduce etalon3', reduceEtalon);
+    console.log('-------');
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    } else {
+        console.error('Ошибка!');
+        console.dir(e);
+    }
+}
+
+try {
+    let reduce1 = reduce(array4, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
+    let reduceEtalon = array4.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
+    console.log('reduce array4', reduce1);
+    console.log('reduce etalon4', reduceEtalon);
+    console.log('-------');
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    } else {
+        console.error('Ошибка!');
+        console.dir(e);
+    }
+}
+// reduce end
+
+console.log('---= reduce end =---');
