@@ -111,3 +111,59 @@ try {
     }
 }
 // filter end
+
+console.log('---= end filter =---');
+
+//map
+
+function map( arraySource, conditionFunc ) {
+    let arraySourceLength = arraySource.length;
+    let outArray = [];
+
+    if ( arraySourceLength === 0 || !Array.isArray(arraySource) ) {
+        throw new Error('NOT_ARRAY');
+    } else {
+        for (let i = 0; i < arraySourceLength; i++ ) {
+            outArray[i] = conditionFunc(arraySource[i])
+        }
+    }
+
+    return outArray;
+}; //filter
+
+try {
+    let sqare = map(array, item => item*item);
+    console.log('mapped array', sqare);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+try {
+    let sqare = map(array2, item => item*item);
+    console.log('mapped array', sqare);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+try {
+    let sqare = map(array3, item => item*item);
+    console.log('mapped array', sqare);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+try {
+    let sqare = map(array4, item => item*item);
+    console.log('mapped array', sqare);
+} catch (e) {
+    if ( e.message === 'NOT_ARRAY' ) {
+        console.error('Введен пустой массив или массив не задан!');
+    }
+}
+
+
+
+//map end
