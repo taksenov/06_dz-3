@@ -32,7 +32,6 @@ function forEach( arraySource, screenLog ) {
 };
 
 forEach(array, (index, value, originalArray) => console.log(index, value));  // return each items of array
-console.log('------');
 try {
     forEach(array2, (index, value, originalArray) => console.log(index, value));  // return error message
 } catch (e) {
@@ -40,7 +39,6 @@ try {
         console.error('Введен пустой массив или массив не задан!');
     }
 }
-console.log('------');
 try {
     forEach(array3, (index, value, originalArray) => console.log(index, value));  // return error message
 } catch (e) {
@@ -48,7 +46,6 @@ try {
         console.error('Введен пустой массив или массив не задан!');
     }
 }
-console.log('------');
 try {
     forEach(array4, (index, value, originalArray) => console.log(index, value));  // return error message
 } catch (e) {
@@ -68,11 +65,12 @@ function filter( arraySource, conditionFunc ) {
     if ( arraySourceLength === 0 || !Array.isArray(arraySource) ) {
         throw new Error('NOT_ARRAY');
     } else {
-        for (let i = 0; i < arraySourceLength; i++ ) {
-            if ( conditionFunc(arraySource[i]) ) {
-                outArray[outArray.length] = arraySource[i];
+        // использую ранее написанный forEach, вместо for...
+        forEach(arraySource, (index, value, originalArray) => {
+            if ( conditionFunc(arraySource[index]) ) {
+                    outArray[outArray.length] = arraySource[index];
             }
-        }
+        })
     }
 
     return outArray;
@@ -125,6 +123,11 @@ function map( arraySource, conditionFunc ) {
         for (let i = 0; i < arraySourceLength; i++ ) {
             outArray[i] = conditionFunc(arraySource[i])
         }
+        // использую ранее написанный forEach, вместо for...
+        forEach(arraySource, (index, value, originalArray) => {
+            outArray[index] = conditionFunc(arraySource[index])
+        })
+
     }
 
     return outArray;
@@ -170,16 +173,8 @@ console.log('---= end map =---');
 function slice( arraySource, begin, end ) {
     let arraySourceLength = arraySource.length;
     let outArray = [];
-    let beginParam = begin;
-    let endParam = end;
-
-    // if slice parameters is not set
-    if ( !beginParam ) {
-        beginParam = 0;
-    }
-    if ( !endParam ) {
-        endParam = arraySourceLength;
-    }
+    let beginParam = begin || 0;
+    let endParam = end || arraySourceLength;
 
     if ( arraySourceLength === 0 || !Array.isArray(arraySource) ) {
         throw new Error('NOT_ARRAY');
@@ -336,7 +331,6 @@ try {
         console.dir(e);
     }
 }
-
 try {
     let reduce1 = reduce(array, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
     let reduceEtalon = array.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
@@ -351,7 +345,6 @@ try {
         console.dir(e);
     }
 }
-
 try {
     let reduce1 = reduce(array2, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
     let reduceEtalon = array2.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
@@ -366,7 +359,6 @@ try {
         console.dir(e);
     }
 }
-
 try {
     let reduce1 = reduce(array3, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
     let reduceEtalon = array3.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
@@ -381,7 +373,6 @@ try {
         console.dir(e);
     }
 }
-
 try {
     let reduce1 = reduce(array4, (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 );
     let reduceEtalon = array4.reduce( (previousValue, currentValue, index, array) => { return previousValue + currentValue }, 10 )
